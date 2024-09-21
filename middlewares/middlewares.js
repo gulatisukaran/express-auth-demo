@@ -1,5 +1,8 @@
-import { Octokit } from "@octokit/rest";
+import { Octokit } from "@octokit/core";
+import fetch from "node-fetch";
 import { google } from "googleapis";
+
+
 
 // ----Middlewares----
 export function userAuthenticated(req, res, next) {
@@ -10,8 +13,12 @@ export function userAuthenticated(req, res, next) {
 }
 
 export async function userFollowsGithub(req, res, next) {
+
     const octokit = new Octokit({
-        auth: req.user.accessToken
+      auth: req.user.accessToken, // Or however you're handling auth
+      request: {
+        fetch: fetch,
+      },
     });
 
     const targetAccount = 'bytemait';  // Account to check if the user is following
