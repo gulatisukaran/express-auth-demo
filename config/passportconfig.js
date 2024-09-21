@@ -9,7 +9,7 @@ dotenv.config();
 passport.use(new GitHubStrategy({
     clientID: process.env.GITHUB_CLIENT_ID,
     clientSecret: process.env.GITHUB_CLIENT_SECRET,
-    callbackURL: process.env.CALLBACK_URL
+    callbackURL: process.env.GITHUB_CALLBACK_URL || "http://localhost:3000/auth/github/callback",
   },
   (accessToken, refreshToken, profile, done) => {
     // Here, you would typically store the user info in a database
@@ -23,7 +23,7 @@ passport.use(new GitHubStrategy({
 passport.use(new YoutubeV3Strategy({
     clientID: process.env.GOOGLE_APP_ID,
     clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-    callbackURL: "http://localhost:3000/auth/youtube/callback",
+    callbackURL: process.env.YOUTUBE_CALLBACK_URL || "http://localhost:3000/auth/youtube/callback",
     scope: ['https://www.googleapis.com/auth/youtube.readonly']
   },
   (accessToken, refreshToken, profile, done) => {
